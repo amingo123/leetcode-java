@@ -3,7 +3,7 @@ package _1114PrintinOrder;
 import javax.tools.ForwardingFileObject;
 import java.net.SocketOptions;
 import java.util.concurrent.CountDownLatch;
-//test
+
 class _1114PrintinOrder {
     public static void main(String[] args) throws InterruptedException {
         Foo foo = new Foo();

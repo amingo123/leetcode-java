@@ -6,54 +6,25 @@ import java.util.concurrent.Semaphore;
 
 public class _1115PrintFooBarAlternately {
     public static void main(String[] args) throws InterruptedException {
-//        FooBar fooBar = new FooBar(10);
-//        try {
-//            fooBar.foo(() -> System.out.print("foo"));
-//            fooBar.bar(() -> System.out.print("bar"));
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        FooBar fooBar = new FooBar(2);
 
-
-        FooBar foobar = new FooBar(5);
-        Runnable foo = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("foo");
+        new Thread(()->
+        {
+            try {
+                fooBar.foo(() -> System.out.print("foo"));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        };
+        },"foo").start();
 
-        Runnable bar = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("bar");
+        new Thread(()->
+        {
+            try {
+                fooBar.bar(() -> System.out.print("bar"));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        };
-
-        Thread t1 = new Thread(foo){
-            @Override
-            public void run() {
-                try {
-                    foobar.foo(foo);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        Thread t2 = new Thread(bar){
-            @Override
-            public void run() {
-                try {
-                    foobar.bar(bar);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        t1.start();
-        t2.start();
+        },"foo").start();
     }
 }
 

@@ -1,0 +1,8 @@
+（1）synchronized的CPU原语级别是如何实现的？
+（2）一千万个数，如何高效求和。
+（3）不用数学库，求2开平方的值，精确到小数点儿后10位。
+（4）下列三种业务，应该如何使用线程池：
+高并发、任务执行时间短的业务
+并发不高、任务执行时间长的业务
+并发高、业务执行时间长的业务
+https://stackoverflow.com/questions/59660413/multithread-summation-with-java

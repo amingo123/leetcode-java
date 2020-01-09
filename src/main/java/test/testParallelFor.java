@@ -21,6 +21,7 @@ public class testParallelFor {
 
 
         int num = Runtime.getRuntime().availableProcessors();
+        long startTime = System.currentTimeMillis();    //获取开始时间
         ExecutorService exec = Executors.newFixedThreadPool(num);
         List<Future<Long>> futures = new ArrayList<>();
         try {
@@ -45,6 +46,8 @@ public class testParallelFor {
             }
             sum = sum + end;
             System.out.println("result="+sum);
+            long endTime = System.currentTimeMillis();    //获取结束时间
+            System.out.println("程序运行时间：" + (endTime - startTime) + "ms");    //输出程序运行时间
         }
     }
 

@@ -5,6 +5,7 @@ import java.util.concurrent.*;
 import java.util.stream.LongStream;
 
 //一千万个数，如何高效求和。
+//https://stackoverflow.com/questions/59660413/multithread-summation-with-java
 public class testParallelFor {
     volatile static long sum = 0;
     final static int step = 10;

@@ -12,12 +12,12 @@ public class testParallelFor {
     final static int end = 10000000;
     final static int max = 4000;
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-//        long a = 1;
-//        long b = 10000000;
-//        long c = LongStream.rangeClosed(a, b)  // Creates a stream going from 1 to 10000000
-//                .parallel()  // Parallelize this stream
-//                .sum();      // Sums every value of this stream
-//        System.out.println(c);
+        long a = 0;
+        long b = 3999;
+        long c = LongStream.rangeClosed(a, b)  // Creates a stream going from 1 to 10000000
+                .parallel()  // Parallelize this stream
+                .sum();      // Sums every value of this stream
+        System.out.println(c);
 
         int num = 2*Runtime.getRuntime().availableProcessors();
         long startTime = System.currentTimeMillis();    //获取开始时间

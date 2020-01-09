@@ -8,33 +8,37 @@ import java.util.stream.LongStream;
 //https://stackoverflow.com/questions/59660413/multithread-summation-with-java
 public class testParallelFor {
     volatile static long sum = 0;
-    final static int step = 10;
     final static int start = 1;
     final static int end = 10000000;
+    final static int max = 4000;
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        long a = 1;
-        long b = 10000000;
-        long c = LongStream.rangeClosed(a, b)  // Creates a stream going from 1 to 10000000
-                .parallel()  // Parallelize this stream
-                .sum();      // Sums every value of this stream
-        //System.out.println(c);
+//        long a = 1;
+//        long b = 10000000;
+//        long c = LongStream.rangeClosed(a, b)  // Creates a stream going from 1 to 10000000
+//                .parallel()  // Parallelize this stream
+//                .sum();      // Sums every value of this stream
+//        System.out.println(c);
 
-
-        int num = Runtime.getRuntime().availableProcessors();
+        int num = 2*Runtime.getRuntime().availableProcessors();
         long startTime = System.currentTimeMillis();    //获取开始时间
         ExecutorService exec = Executors.newFixedThreadPool(num);
         List<Future<Long>> futures = new ArrayList<>();
         try {
-            for (int i = start; i < end;i = i * step) {
-                int finalI = i;
-//                exec.submit(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        System.out.println("before"+sum);
-//                        sum = sum+ Sum(finalI, finalI * step);
-//                    }
-//                });
-                futures.add(exec.submit(() -> Sum(finalI, finalI * step)));
+            int s = 1;
+            int e = s + max;
+            boolean run = true;
+            while(run)
+            {
+                if(e> end)
+                {
+                    e = end+1;
+                    run = false;
+                }
+                int finalE = e;
+                int finalS = s;
+                futures.add(exec.submit(() -> Sum(finalS, finalE)));
+                s = finalE;
+                e = finalE + max;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -44,21 +48,19 @@ public class testParallelFor {
             for (Future<Long> future : futures) {
                 sum += future.get();
             }
-            sum = sum + end;
-            System.out.println("result="+sum);
             long endTime = System.currentTimeMillis();    //获取结束时间
-            System.out.println("程序运行时间：" + (endTime - startTime) + "ms");    //输出程序运行时间
+            System.out.println("ParallelFor程序运行时间：" + (endTime - startTime) + "ms result="+sum);    //输出程序运行时间
         }
     }
 
     static long Sum(int i,int j)
     {
-        System.out.println(Thread.currentThread().getName() + "Sum from "+ i + " to " + j + " start.");
+        //System.out.println(Thread.currentThread().getName() + "Sum from "+ i + " to " + j + " start.");
         long temp =0;
         for (int k = i; k < j; k++) {
             temp = temp + k;
         }
-        System.out.println(Thread.currentThread().getName() + "Sum from "+ i + " to " + j + " end. sum="+temp);
+        //System.out.println(Thread.currentThread().getName() + "Sum from "+ i + " to " + j + " end. sum="+temp);
         return  temp;
     }
 }

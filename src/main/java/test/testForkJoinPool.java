@@ -51,13 +51,13 @@ public class testForkJoinPool {
         long startTime = System.currentTimeMillis();    //获取开始时间
         long[] arr = new long[10000000];
         for (int i =0 ; i < 10000000; i++) {
-            arr[i] =i+1;
+            arr[i] =i +1;
         }
 
         ForkJoinPool pool = new ForkJoinPool();
         ForkJoinTask<Long> result = pool.submit(new testForkJoinPool().new SumTask(arr, 0, arr.length));
         long endTime = System.currentTimeMillis();    //获取结束时间
-        System.out.println("程序运行时间：" + (endTime - startTime) + "ms");    //输出程序运行时间
+        System.out.println("ForkJoin程序运行时间：" + (endTime - startTime) + "ms " + result.get());    //输出程序运行时间
         pool.shutdown();
     }
 }

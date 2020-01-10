@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.LongStream;
+import static java.util.stream.LongStream.*;
 
 //一千万个数，如何高效求和。
 //https://stackoverflow.com/questions/59660413/multithread-summation-with-java
